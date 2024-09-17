@@ -1,3 +1,72 @@
+- **JAN 30 2024**: COMPELETED World Generation in print_world() 
+- **JAN 31 2024**: FIXED The Unconnected Road Path Bug
+
+- **FEB 3, 2024**: Implemented the initial world generation functionality. This included generating the game board, creating road paths (NS and WE), and placing various terrain elements such as tall grass, trees, boulders, and water.
+- **FEB 4, 2024**: Connected the road paths from one map to another, ensuring continuity between adjacent maps. This was a challenging task that required careful coordination to ensure seamless movement between maps.
+- **FEB 5, 2024**: Implemented user interaction functionality, allowing players to move between maps in different directions (N, S, E, W) and fly to specific coordinates. Also added the option to quit the game (q).
+- **FEB 6, 2024**: Enhanced code readability and maintainability by adding detailed comments explaining the purpose and functionality of each code segment. This improves understanding for future development and debugging.
+- **FEB 7, 2024**: Integrated a formula to determine the frequency of Pokemarts and Pokemon Centers based on the distance from the center of the map. This formula adds depth to gameplay, making the game more challenging as players move farther from the starting position. The formula used was -45d/200+50, where 'd' represents the Manhattan distance from the center. This results in a roughly 50% probability of each building near the center, decreasing linearly to 5% near the edges or farther.
+
+- **FEB 15, 2024**: Implemented Dijkstra's algorithm for calculating shortest paths for hikers and rivals on each map. This allows for the dynamic generation of distance maps, enhancing the game's navigation system.
+- **FEB 17, 2024**: Added priority queue functionality to optimize the pathfinding algorithm, improving the efficiency and performance of the game.
+- **FEB 19, 2024**: Introduced terrain-specific movement costs, differentiating between hikers and rivals. This adds depth to the gameplay, with various terrains having different impacts on movement.
+- **FEB 20, 2024**: Implemented forest and gate detection in the map generation process.
+- **FEB 21, 2024**: Updated the game to calculate and display distance maps for the current map only, focusing on the player's immediate surroundings and enhancing the user experience.
+
+- **FEB 23, 2024**: Implemented the ability to add the player character (PC) represented by '@' on the road within the game map. Ensured the PC stays within the map borders and does not enter exits.
+- **FEB 24, 2024**: Added a command-line switch `--numtrainers` to specify the number of Pokémon trainers to be scattered around the map, with a default value set to 10 when the switch is not present.
+- **FEB 25, 2024**: Ensured that at least one hiker and one rival are generated on the map unless the specified number of trainers is less than 2.
+- **FEB 26, 2024**: Introduced six types of NPCs (Hikers, Rivals, Pacers, Wanderers, Sentries, and Explorers) with distinct movement behaviors and terrain interactions. Implemented logic to prevent NPCs from spawning or moving into cells occupied by other characters or into exits.
+- **FEB 27, 2024**: Utilized a priority queue to manage the order of NPC turns based on their movement costs, ensuring a dynamic and fair turn system.
+- **FEB 28, 2024**: Added functionality to redraw the map after each PC turn and introduced a brief delay to allow observers to see the updates.
+
+- **March, 2024**:
+
+### Added
+- Unbuffered I/O control for the player character using `ncurses`.
+- Implementation of immediate command activation upon key-press for a more dynamic user interface.
+- New user commands for directional movement of the player character within the game map.
+- Placeholder interface for Pokémon Battles, triggered upon encounter with NPCs, with an escape command to exit the battle.
+- Defeated NPCs no longer path towards the player character after a battle.
+- Removed automatic delay after each PC turn due to the introduction of manual control.
+- Utilization of `ncurses` for map redraws, enhancing the visual aspect of the game.
+
+### Added
+- Added functionality to move between neighboring maps using Curses interface.
+- Implemented gate movement: Moving into a gate places the PC in the corresponding road square in the neighboring map.
+- NPCs cannot move into gates.
+- Maintained turn queues and NPC positions across map movement and flying.
+- Converted the entire game to C++: Renamed C files to .cpp, updated makefile, and linked with the C++ compiler.
+- Changed major structs (map and character structures) to classes. Implemented public access to members but did not add methods to classes.
+- Implemented class inheritance for character types: pc and npc now inherit from character class.
+- Updated heap.h and heap.c to be compatible with C++ without requiring changes.
+
+### Added
+- Parsing of CSV files for Pokémon data, moves, types, stats, and more, enabling dynamic content loading.
+- Color coding in terminal display to distinguish various map elements and entities for a better gaming experience.
+- Hierarchical search across multiple directories for game database files, including use of system environment variables for flexibility.
+- Filtered output display to replace placeholder values with clear and concise information for the player.
+
+### Changed
+- Overhauled the in-game messaging system to support color coding, enhancing user feedback and game interactivity.
+
+### Added
+- Implemented Pokemon encounters in tall grass with a chance of encounter and generation of Pokemon with levels and movesets based on map location.
+- Added a placeholder battle interface for encounters with wild Pokemon, displaying details such as level, stats, and moves.
+- Equipped NPC trainers with their own Pokemon, generated according to the location on the map, with levels and movesets based on specific generation rules.
+- Introduced a placeholder battle interface for trainer battles, displaying the details of the trainer's Pokemon.
+- Included functionality for the PC to choose from three randomly generated level 1 Pokemon at the start of the game.
+- Implemented a probability system for NPC trainers to have additional Pokemon, up to a maximum of six.
+
+### Added
+- Updated the game to include Pokemon battles with turn-based interactions between trainers or between a trainer and a wild Pokemon.
+- Implemented simplified Pokemon battle mechanics, including move selection, accuracy, damage calculation, and knockout conditions.
+- Added battle commands for trainers: Fight, Bag, Run, and Swap Pokemon.
+- Implemented Pokemon moves, damage calculation, and knockout mechanics.
+- Added items: Potions, Revives, and Pokeballs, with functionality for item usage in battles and for Pokemon healing.
+- Added functionality to restore Pokemon and supplies at Pokecenters and Pokemarts.
+- Added Bag command to access items outside of battle.
+
 ### Added
 - Introduced new status effect items: Toxic Orbs, Light Balls, Flame Orbs, Freeze Bombs, and Sleep Powders. These items can be used during battles to afflict enemy Pokémon with various status conditions.
 - Implemented status effects that persist for several turns, affecting Pokémon performance in battles (e.g., burn, poison, paralysis).
@@ -18,3 +87,4 @@
 - Addressed issues with the status effect system where effects could persist incorrectly or not apply as expected.
 - Corrected bugs related to Pokémon experience calculations and level-up progression.
 - Fixed various minor bugs and performance issues to improve game stability and user experience.
+
